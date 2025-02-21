@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click to Reveal Love Notes</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: pink;
+            background-image: url('file-CWJKu1UN4pAoLN7mhqN99o');
+            background-size: cover;
+            background-position: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+        }
+        .heart-button {
+            font-size: 24px;
+            background: linear-gradient(45deg, #ff4d6d, #ff1c47);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 28, 71, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .heart-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            transition: transform 0.3s;
+            border-radius: 50px;
+        }
+        .heart-button:hover::before {
+            transform: scale(1);
+        }
+        .heart-button:hover {
+            transform: scale(1.1);
+        }
+        #love-notes p {
+            margin-top: 10px;
+            font-size: 24px;
+            color: #d6336c;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s, transform 1s;
+            text-align: center;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <button class="heart-button" onclick="revealNotes()">💖 Click Me 💖</button>
+    <div id="love-notes">
+        <p id="note1">You are my favorite person in the world! 💕</p>
+        <p id="note2">You make my heart smile every day! 💓</p>
+        <p id="note3">Sorry for all that I have done. I truly apologize. 💔</p>
+        <p id="note4">I am lucky to have you. ❤️</p>
+        <p id="note5">You are my life. 💞</p>
+        <p id="note6">I can't stay without you. 💖</p>
+    </div>
+    
+    <script>
+        function revealNotes() {
+            let notes = document.querySelectorAll("#love-notes p");
+            notes.forEach((note, index) => {
+                setTimeout(() => {
+                    note.style.display = "block";
+                    setTimeout(() => {
+                        note.style.opacity = "1";
+                        note.style.transform = "scale(1.1)";
+                    }, 100);
+                    
+                    setTimeout(() => {
+                        note.style.opacity = "0";
+                        note.style.transform = "scale(0.8)";
+                        setTimeout(() => {
+                            note.style.display = "none";
+                        }, 1000);
+                    }, 4000);
+                }, index * 2000);
+            });
+        }
+        
+        function generateHearts() {
+            setInterval(() => {
+                let heart = document.createElement("div");
+                heart.classList.add("floating-heart");
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 500);
+        }
+        generateHearts();
+    </script>
+</body>
+</html>
